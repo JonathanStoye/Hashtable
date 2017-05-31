@@ -44,6 +44,6 @@ public class Hashtable implements hashtable.Map {
   }
 
   private int hash(Object key) {
-    return this.table.length % (int)key;
+    return (int)key % this.table.length;
   }
 }
