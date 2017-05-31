@@ -17,16 +17,11 @@ public class Hashtable implements hashtable.Map {
   public Object put(Object key, Object value) {
     final Item newItem = new Item(key, value);
     final int index = this.hash(key);
-    Item returnValue = null;
-    if (this.table[index] == null) {
-      this.table[index] = new LinkedList();
+    Object returnValue = null;
+    if (this.get(key) != null) {
+      returnValue = this.remove(key);
     } else {
-      for (Item item : this.table[index]) {
-        if (item.key == newItem.key) {
-          returnValue = item;
-          this.table[index].remove(item);
-        }
-      }
+      this.table[index] = new LinkedList();
     }
     this.table[index].add(newItem);
     itemCount++;
@@ -35,11 +30,26 @@ public class Hashtable implements hashtable.Map {
 
   @Override
   public Object get(Object key) {
+    final int index = this.hash(key);
+    if (this.table[index] != null) {
+      for (Item item : this.table[index]) {
+        if (key.equals(item.key)) {
+          return item;
+        }
+      }
+    }
     return null;
   }
 
   @Override
   public Object remove(Object key) {
+    final int index = this.hash(key);
+    Item item = (Item)this.get(key);
+    if (item != null) {
+      this.table[index].remove(item);
+      itemCount--;
+      return item;
+    }
     return null;
   }
 

@@ -8,4 +8,11 @@ public class Item {
    this.key = key;
    this.value = value;
   }
+
+  public boolean equals(Item o) {
+    if (this.key.equals(o.key) && this.value.equals(o.value)) {
+      return true;
+    }
+    return false;
+  }
 }
