@@ -43,4 +43,21 @@ public class HashtableTest {
     assertEquals(0, this.table.itemCount);
     assertNull(this.table.remove(this.item2.key));
   }
+
+  @Test
+  public void hash() {
+    assertEquals(0, this.table.hash(3));
+    assertEquals(1, this.table.hash(1));
+    assertEquals(2, this.table.hash(2));
+  }
+
+  @Test
+  public void increase() {
+    Hashtable table = new Hashtable(1);
+    table.put(new Integer(2), "test1");
+    table.put(new Integer(3), "test2");
+    table.put(new Integer(4), "test3");
+    table.put(new Integer(5), "test4");
+    assertEquals(4, table.itemCount);
+  }
 }

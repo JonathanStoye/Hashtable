@@ -20,11 +20,14 @@ public class Hashtable implements hashtable.Map {
     Object returnValue = null;
     if (this.get(key) != null) {
       returnValue = this.remove(key);
-    } else {
+    } else if(this.table[index] == null) {
       this.table[index] = new LinkedList();
     }
     this.table[index].add(newItem);
-    itemCount++;
+    this.itemCount++;
+    if (this.itemCount > this.table.length * 3) {
+      this.increase();
+    }
     return returnValue;
   }
 
@@ -47,13 +50,26 @@ public class Hashtable implements hashtable.Map {
     Item item = (Item)this.get(key);
     if (item != null) {
       this.table[index].remove(item);
-      itemCount--;
+      this.itemCount--;
       return item;
     }
     return null;
   }
 
-  private int hash(Object key) {
+  protected int hash(Object key) {
     return (int)key % this.table.length;
+  }
+
+  protected void increase() {
+    final LinkedList<Item>[] previousTable = this.table;
+    this.table = new LinkedList[this.itemCount * 2];
+    this.itemCount = 0;
+    System.out.println(table.length);
+    for (LinkedList<Item> items : previousTable) {
+      for (Item item : items) {
+        System.out.println(this.hash(item.key));
+        this.put(item.key, item.value);
+      }
+    }
   }
 }
