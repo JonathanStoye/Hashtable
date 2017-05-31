@@ -7,6 +7,7 @@ import java.util.LinkedList;
  */
 public class Hashtable implements hashtable.Map {
   private LinkedList<Item>[] table;
+  public int itemCount = 0;
 
   Hashtable(int size) {
     this.table = new LinkedList[size];
@@ -28,6 +29,7 @@ public class Hashtable implements hashtable.Map {
       }
     }
     this.table[index].add(newItem);
+    itemCount++;
     return returnValue;
   }
 
