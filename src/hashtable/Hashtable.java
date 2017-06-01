@@ -13,6 +13,12 @@ public class Hashtable implements hashtable.Map {
     this.table = new LinkedList[size];
   }
 
+  /**
+   * Speichert ein Schlüssel-Wert Paar. Überschreibt ein bereits vorhandenes Objekt mit dem gleichen Schlüssel
+   * @param key   der zu speichernde Schluessel
+   * @param value der zu speichernde Wert
+   * @return
+   */
   @Override
   public Object put(Object key, Object value) {
     final Item newItem = new Item(key, value);
@@ -31,6 +37,11 @@ public class Hashtable implements hashtable.Map {
     return returnValue;
   }
 
+  /**
+   * Gibt das durch @param key definierte Element zurück
+   * @param key Schlüssel des gesuchten Elementes
+   * @return null wenn kein Element gefunden wurde, ansonsten das gesuchte Element
+   */
   @Override
   public Object get(Object key) {
     final int index = this.hash(key);
@@ -44,6 +55,11 @@ public class Hashtable implements hashtable.Map {
     return null;
   }
 
+  /**
+   * Entfernt das Object mit dem gegebenen Schlüssel und verringert die Anzahl der Elemente entsprechend
+   * @param key der Schluessel ds zu entfernenden Elementes
+   * @return null wenn das Element nicht gefunden wurde ansonsten das entfernte Element
+   */
   @Override
   public Object remove(Object key) {
     final int index = this.hash(key);
@@ -56,18 +72,24 @@ public class Hashtable implements hashtable.Map {
     return null;
   }
 
+  /**
+   * Einfache Hashmethode
+   * @param key - wird nach int gecastet
+   * @return Hashwert
+   */
   protected int hash(Object key) {
     return (int)key % this.table.length;
   }
 
+  /**
+   * Vergrößert das zugrundeliegende Array und organisiert die Elemente auf Basis der sich dadurch ändernden Hashmethode neu
+   */
   protected void increase() {
     final LinkedList<Item>[] previousTable = this.table;
     this.table = new LinkedList[this.itemCount * 2];
     this.itemCount = 0;
-    System.out.println(table.length);
     for (LinkedList<Item> items : previousTable) {
       for (Item item : items) {
-        System.out.println(this.hash(item.key));
         this.put(item.key, item.value);
       }
     }
