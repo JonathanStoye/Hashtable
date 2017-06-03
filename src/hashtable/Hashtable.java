@@ -4,6 +4,10 @@ import java.util.LinkedList;
 
 /**
  * Created by Jonathan on 31.05.17.
+ *
+ * Speichert Schlüssel-Wert-Paare in einem Array. Errechnet die Indicies mit Hilfe
+ * einer einfach Hashmethode. Vergrößert sich selbständig ab einem gewissen Füllstand
+ * und berechnet und sortiert die Elemente dann neu.
  */
 public class Hashtable implements hashtable.Map {
   private LinkedList<Item>[] table;
@@ -14,7 +18,9 @@ public class Hashtable implements hashtable.Map {
   }
 
   /**
-   * Speichert ein Schlüssel-Wert Paar. Überschreibt ein bereits vorhandenes Objekt mit dem gleichen Schlüssel
+   * Speichert ein Schlüssel-Wert Paar. Überschreibt ein bereits vorhandenes
+   * Objekt mit dem gleichen Schlüssel
+   *
    * @param key   der zu speichernde Schluessel
    * @param value der zu speichernde Wert
    * @return
@@ -39,6 +45,7 @@ public class Hashtable implements hashtable.Map {
 
   /**
    * Gibt das durch @param key definierte Element zurück
+   *
    * @param key Schlüssel des gesuchten Elementes
    * @return null wenn kein Element gefunden wurde, ansonsten das gesuchte Element
    */
@@ -56,7 +63,9 @@ public class Hashtable implements hashtable.Map {
   }
 
   /**
-   * Entfernt das Object mit dem gegebenen Schlüssel und verringert die Anzahl der Elemente entsprechend
+   * Entfernt das Object mit dem gegebenen Schlüssel und verringert
+   * die Anzahl der Elemente entsprechend
+   *
    * @param key der Schluessel ds zu entfernenden Elementes
    * @return null wenn das Element nicht gefunden wurde ansonsten das entfernte Element
    */
@@ -73,7 +82,8 @@ public class Hashtable implements hashtable.Map {
   }
 
   /**
-   * Einfache Hashmethode
+   * Einfache Hashmethode mit dem Modulusoperator
+   *
    * @param key - wird nach int gecastet
    * @return Hashwert
    */
@@ -82,7 +92,8 @@ public class Hashtable implements hashtable.Map {
   }
 
   /**
-   * Vergrößert das zugrundeliegende Array und organisiert die Elemente auf Basis der sich dadurch ändernden Hashmethode neu
+   * Vergrößert das zugrundeliegende Array und organisiert die Elemente auf Basis
+   * der sich dadurch ändernden Hashmethode neu
    */
   protected void increase() {
     final LinkedList<Item>[] previousTable = this.table;
